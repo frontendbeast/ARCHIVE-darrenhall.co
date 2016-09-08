@@ -4,6 +4,7 @@
   "description": "My portfolio and blog.",
   "main": "index.js",
   "scripts": {
+    "commitmsg": "validate-commit-msg",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/iamdarrenhall/darrenhall.co/issues"
   },
-  "homepage": "https://darrenhall.co"
+  "homepage": "https://darrenhall.co",
+  "devDependencies": {
+    "husky": "^0.11.7",
+    "validate-commit-msg": "^2.8.0"
+  }
 }
