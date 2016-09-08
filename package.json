@@ -1,0 +1,23 @@
+{
+  "name": "darrenhall.co",
+  "version": "1.0.0",
+  "description": "My portfolio and blog.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamdarrenhall/darrenhall.co"
+  },
+  "author": {
+    "name": "Darren Hall",
+    "email": "darren@darrenhall.info",
+    "url": "https://darrenhall.co"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iamdarrenhall/darrenhall.co/issues"
+  },
+  "homepage": "https://darrenhall.co"
+}
