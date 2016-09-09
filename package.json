@@ -24,5 +24,8 @@
   "devDependencies": {
     "husky": "^0.11.7",
     "validate-commit-msg": "^2.8.0"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
   }
 }
