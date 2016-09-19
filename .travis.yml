@@ -3,6 +3,8 @@ node_js: '5.2.0'
 install: echo "skipping install"
 branches:
   only: master
+addons:
+  ssh_known_hosts: $VPS_IP_ADDRESS
 after_success:
 - chmod 600 deploy_key
 - mv deploy_key ~/.ssh/id_rsa
