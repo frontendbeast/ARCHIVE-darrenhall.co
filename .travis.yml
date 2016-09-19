@@ -4,11 +4,9 @@ install: echo "skipping install"
 branches:
   only: master
 after_success:
-- chmod 600 deploy_key
-- mv deploy_key ~/.ssh/id_rsa
 - git remote add deploy ssh://$VPS_USER@$VPS_IP_ADDRESS$VPS_PATH
 - git push deploy
 before_install:
 - echo -e "Host $VPS_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- openssl aes-256-cbc -K $encrypted_664ac0a2c83a_key -iv $encrypted_664ac0a2c83a_iv
-  -in deploy_key.enc -out deploy_key -d
+- openssl aes-256-cbc -K $encrypted_664ac0a2c83a_key -iv $encrypted_664ac0a2c83a_iv -in deploy_key.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
