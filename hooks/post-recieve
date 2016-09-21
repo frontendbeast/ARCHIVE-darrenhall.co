@@ -1,0 +1,28 @@
+#!/bin/bash
+unset GIT_DIR
+
+DATE=$(date +"%Y%m%d%H%M")
+
+REPO_BRANCH=master
+REPO_PATH=/var/www/darrenhall.co/repo.git
+
+WWW_ROOT=/var/www/darrenhall.co
+WWW_CURRENT=$WWW_ROOT/current
+WWW_RELEASES=$WWW_ROOT/releases
+WWW_RELEASE=$WWW_RELEASES/$DATE
+
+# Create new release folder if it does not exist
+if [ ! -d $WWW_RELEASE ]; then mkdir $WWW_RELEASE; fi
+
+# Set working tree to this release and checkout repo
+git --work-tree=$WWW_RELEASE --git-dir=$REPO_PATH checkout -f
+
+# Install npm_modules
+cd $WWW_RELEASE
+npm install --production
+
+# Remove all but last 5 releases
+ls -tr $WWW_RELEASES | head -n -5 | xargs rm -rf
+
+# Symlink new release as current
+ln -sfn $WWW_RELEASE $WWW_CURRENT
