@@ -1,0 +1,15 @@
+{
+    "apps" : [{
+        "name": "darrenhall.co",
+        "script": "/var/www/darrenhall.co/current/source/server.js",
+        "env": {
+            "NODE_ENV": "production"
+        }
+    },{
+        "name": "staging.darrenhall.co",
+        "script": "/var/www/darrenhall.co/subdomains/staging/current/source/server.js",
+        "env": {
+            "NODE_ENV": "development"
+        }
+    }]
+}
