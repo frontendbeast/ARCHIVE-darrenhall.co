@@ -1,28 +1,52 @@
 #!/bin/bash
+
+# Load nvm so npm command is found
+export NVM_DIR="/usr/local/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+
 unset GIT_DIR
 
+# We'll use this for the release folder name 
 DATE=$(date +"%Y%m%d%H%M")
 
-REPO_BRANCH=master
+PM2_PROCESS=darrenhall.co
 REPO_PATH=/var/www/darrenhall.co/repo.git
 
-WWW_ROOT=/var/www/darrenhall.co
-WWW_CURRENT=$WWW_ROOT/current
-WWW_RELEASES=$WWW_ROOT/releases
-WWW_RELEASE=$WWW_RELEASES/$DATE
+# Cater for multiple similtaneous branch pushes
+while read oldrev newrev refname
+do
+    BRANCH=$(git rev-parse --symbolic --abbrev-ref $refname)
 
-# Create new release folder if it does not exist
-if [ ! -d $WWW_RELEASE ]; then mkdir $WWW_RELEASE; fi
+    WWW_ROOT=/var/www/darrenhall.co
 
-# Set working tree to this release and checkout repo
-git --work-tree=$WWW_RELEASE --git-dir=$REPO_PATH checkout -f
+    if [ "$BRANCH" != "master" ]; then
+        PM2_PROCESS=staging.$PM2_PROCESS
+        WWW_ROOT=$WWW_ROOT/subdomains/staging
+    fi
 
-# Install npm_modules
-cd $WWW_RELEASE
-npm install --production
+    WWW_CURRENT=$WWW_ROOT/current
+    WWW_RELEASES=$WWW_ROOT/releases
+    WWW_RELEASE=$WWW_RELEASES/$DATE
 
-# Remove all but last 5 releases
-ls -tr $WWW_RELEASES | head -n -5 | xargs rm -rf
+    echo "Branch: $BRANCH"
+    echo "Release: $DATE"
 
-# Symlink new release as current
-ln -sfn $WWW_RELEASE $WWW_CURRENT
+    # Create new release folder if it does not exist
+    if [ ! -d $WWW_RELEASE ]; then mkdir $WWW_RELEASE; fi
+
+    # Set working tree to this release and checkout repo
+    git --work-tree=$WWW_RELEASE --git-dir=$REPO_PATH checkout $BRANCH -f
+
+    # Install npm_modules
+    cd $WWW_RELEASE
+    npm install --production
+
+    # Remove all but last 5 releases
+    ls -tr $WWW_RELEASES | head -n -5 | xargs rm -rf
+
+    # Symlink new release as current
+    ln -sfn $WWW_RELEASE $WWW_CURRENT
+
+    # Restart PM2
+    pm2 restart $PM2_PROCESS
+done
