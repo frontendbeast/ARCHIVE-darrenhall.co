@@ -6,30 +6,40 @@ export NVM_DIR="/usr/local/nvm"
 
 unset GIT_DIR
 
-# We'll use this for the release folder name 
+# We'll use this for the release folder name
 DATE=$(date +"%Y%m%d%H%M")
 
-PM2_PROCESS=darrenhall.co
+# Where our repo lives
 REPO_PATH=/var/www/darrenhall.co/repo.git
 
 # Cater for multiple similtaneous branch pushes
 while read oldrev newrev refname
 do
+    # Get name of branch that is being pushed
     BRANCH=$(git rev-parse --symbolic --abbrev-ref $refname)
 
+    # The name of the PM2 process that we will restart after building
+    PM2_PROCESS=darrenhall.co
+
+    # Web root
     WWW_ROOT=/var/www/darrenhall.co
 
     if [ "$BRANCH" != "master" ]; then
+        # We're not on master, so switch to staging
         PM2_PROCESS=staging.$PM2_PROCESS
         WWW_ROOT=$WWW_ROOT/subdomains/staging
     fi
 
+    # Set deployment paths
     WWW_CURRENT=$WWW_ROOT/current
     WWW_RELEASES=$WWW_ROOT/releases
     WWW_RELEASE=$WWW_RELEASES/$DATE
 
+    # Debugging info
+    echo "---"
     echo "Branch: $BRANCH"
     echo "Release: $DATE"
+    echo "---"
 
     # Create new release folder if it does not exist
     if [ ! -d $WWW_RELEASE ]; then mkdir $WWW_RELEASE; fi
@@ -42,7 +52,7 @@ do
     npm install --production
 
     # Remove all but last 5 releases
-    ls -tr $WWW_RELEASES | head -n -5 | xargs rm -rf
+    ls -trd $WWW_RELEASES/* | head -n -5 | xargs rm -rf
 
     # Symlink new release as current
     ln -sfn $WWW_RELEASE $WWW_CURRENT
