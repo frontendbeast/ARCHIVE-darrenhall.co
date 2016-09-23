@@ -26,6 +26,7 @@
     "validate-commit-msg": "^2.8.0"
   },
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0"
   }
 }
