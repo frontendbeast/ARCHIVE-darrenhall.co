@@ -23,7 +23,9 @@
   "homepage": "https://darrenhall.co",
   "devDependencies": {
     "husky": "^0.11.7",
-    "validate-commit-msg": "^2.8.0"
+    "mocha": "^3.0.2",
+    "validate-commit-msg": "^2.8.0",
+    "zombie": "^4.2.1"
   },
   "dependencies": {
     "express": "^4.14.0",
