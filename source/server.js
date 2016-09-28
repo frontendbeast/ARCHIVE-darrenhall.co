@@ -22,9 +22,15 @@ app.get('/', function(req, res) {
     res.render('home');
 });
 
-// Production server runs on port 4000, development is port 3000
-var PORT = (process.env.NODE_ENV == 'production') ? 4000 : 3000;
+// Unless port is set by mocha, use 4000 for production or 3000 otherwise 
+var PORT = process.env.PORT || (process.env.NODE_ENV == 'production') ? 4000 : 3000;
 
-app.listen(PORT, 'localhost', function() {
-    console.log('Listening on port yeah' + PORT);
-});
+// Expose the app for mocha
+module.exports = app;
+
+// If app is not being ran by mocha, listen
+if (!module.parent) {
+    app.listen(PORT, 'localhost', function() {
+        console.log("Server listening on port " + app.get('port'));
+    });
+}
