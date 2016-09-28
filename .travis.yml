@@ -1,6 +1,7 @@
 language: node_js
-node_js: 5.2.0
-install: echo "skipping install"
+node_js:
+install:
+- npm install
 branches:
   only:
     - master
