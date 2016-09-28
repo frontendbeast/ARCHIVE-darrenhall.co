@@ -1,4 +1,4 @@
-#darrenhall.co  [![Build Status][travis-image]][travis-url]
+#darrenhall.co  [![Build Status](https://travis-ci.org/iamdarrenhall/darrenhall.co.svg?branch=master)](https://travis-ci.org/iamdarrenhall/darrenhall.co)
 
 My portfolio and blog.
 
