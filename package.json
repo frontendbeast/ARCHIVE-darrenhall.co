@@ -1,11 +1,12 @@
 {
   "name": "darrenhall.co",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "My portfolio and blog.",
   "main": "index.js",
   "scripts": {
     "commitmsg": "validate-commit-msg",
-    "test": "echo \"Error: no test specified\""
+    "start": "node ./src/server.js",
+    "test": "./node_modules/mocha/bin/mocha tests/**/*"
   },
   "repository": {
     "type": "git",
