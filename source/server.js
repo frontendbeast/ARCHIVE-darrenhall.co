@@ -12,6 +12,9 @@ const hbs = exphbs.create({
         layoutsDir: path.join(__dirname, 'views', 'layouts'),
 });
 
+// Remove header
+app.disable('x-powered-by');
+
 app.engine('hbs', hbs.engine);
 
 app.set('view engine', 'hbs');
