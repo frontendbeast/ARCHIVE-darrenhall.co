@@ -3,11 +3,11 @@
 process.env.NODE_ENV = 'test';
 process.env.PORT = 5000;
 
-var http = require('http');
-var path = require('path');
+const http = require('http');
+const path = require('path');
 
-var app = require(path.join('..', '..', 'source', 'server'));
-var Browser = require('zombie');
+const app = require(path.join('..', '..', 'source', 'server'));
+const Browser = require('zombie');
 
 Browser.localhost('darrenhall.co', process.env.PORT);
 

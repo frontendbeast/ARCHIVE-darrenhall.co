@@ -1,12 +1,12 @@
 'use strict';
 
-var path = require('path');
-var express = require('express');
-var exphbs = require('express-handlebars');
+const path = require('path');
+const express = require('express');
+const exphbs = require('express-handlebars');
 
-var app = express();
+const app = express();
 
-var hbs = exphbs.create({
+const hbs = exphbs.create({
         extname: 'hbs',
         defaultLayout: 'default',
         layoutsDir: path.join(__dirname, 'views', 'layouts'),
@@ -22,8 +22,8 @@ app.get('/', function(req, res) {
     res.render('home');
 });
 
-// Unless port is set by mocha, use 4000 for production or 3000 otherwise 
-var PORT = process.env.PORT || (process.env.NODE_ENV == 'production') ? 4000 : 3000;
+// Unless port is set by mocha, use 4000 for production or 3000 otherwise
+const PORT = process.env.PORT || (process.env.NODE_ENV == 'production') ? 4000 : 3000;
 
 // Expose the app for mocha
 module.exports = app;
