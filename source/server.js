@@ -31,6 +31,6 @@ module.exports = app;
 // If app is not being ran by mocha, listen
 if (!module.parent) {
     app.listen(PORT, 'localhost', function() {
-        console.log("Server listening on port " + app.get('port'));
+        console.log("Server listening on port " + PORT);
     });
 }
