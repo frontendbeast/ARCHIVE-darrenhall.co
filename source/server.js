@@ -7,9 +7,10 @@ const exphbs = require('express-handlebars');
 const app = express();
 
 const hbs = exphbs.create({
-        extname: 'hbs',
-        defaultLayout: 'default',
-        layoutsDir: path.join(__dirname, 'views', 'layouts'),
+    extname: 'hbs',
+    defaultLayout: 'default',
+    layoutsDir: path.join(__dirname, 'views', 'layouts'),
+	partialsDir: [path.join(__dirname, 'views/partials')]
 });
 
 // Remove header
