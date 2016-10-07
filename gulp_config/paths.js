@@ -22,7 +22,7 @@ function getPaths(config) {
 	var paths = {
 		"clean": [base.dest],
 		"dest": {
-			"partials": path.join(dirs.root, dirs.views, dirs.partials),
+			"partials": path.join(dirs.root, dirs.views, dirs.partials, 'inline'),
 			"root": base.dest,
 			"css": path.join(base.dest, dirs.css)
 		},
