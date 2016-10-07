@@ -51,6 +51,9 @@ do
     cd $WWW_RELEASE
     npm install --production
 
+	# Build front end
+    gulp --prod
+
     # Remove all but last 5 releases
     ls -trd $WWW_RELEASES/* | head -n -5 | xargs rm -rf
 
