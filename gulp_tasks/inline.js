@@ -14,7 +14,7 @@ module.exports = function(gulp, config, tasks) {
 
 	config.task.inline = require('../gulp_config/task.inline.js')(config);
 
-	var dependencies = [];
+	var dependencies = (config.isProd) ? ['sass'] : [];
 
 	gulp.task('inline', dependencies, function () {
 		gulp.src([path.join(config.paths.src.partials, '/**/*.hbs')])

@@ -18,7 +18,7 @@ module.exports = function(gulp, config, tasks) {
 	var dependencies = [];
 
 	gulp.task('sass', dependencies, function () {
-		gulp.src([path.join(config.paths.src.sass, '/**/*.scss')])
+		return gulp.src([path.join(config.paths.src.sass, '/**/*.scss')])
 			.pipe(sass({errLogToConsole: true, outputStyle: 'expanded'}).on('error', sass.logError))
 			.pipe(gulp.dest(config.paths.dest.css))
 			.pipe(gulpif(config.isWatched, livereload()));
