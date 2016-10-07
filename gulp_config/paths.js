@@ -4,12 +4,14 @@ function getPaths(config) {
 	var path = require('path');
 
 	var dirs = {
-		"dest": "source/public",
+		"dest": "public",
 		"css": "styles",
-		"root": ".",
+		"partials": "partials",
+		"root": "./source",
 		"sass": "sass",
-		"src": "source/_public",
-		"tasks": "gulp_tasks"
+		"src": "_public",
+		"tasks": "gulp_tasks",
+		"views": "views"
 	};
 
 	var base = {
@@ -20,14 +22,16 @@ function getPaths(config) {
 	var paths = {
 		"clean": [base.dest],
 		"dest": {
+			"partials": path.join(dirs.root, dirs.views, dirs.partials),
 			"root": base.dest,
 			"css": path.join(base.dest, dirs.css)
 		},
 		"src": {
+			"partials": path.join(base.src, dirs.partials),
 			"root": base.src,
 			"sass": path.join(base.src, dirs.sass)
 		},
-		"tasks": path.join(dirs.root, dirs.tasks)
+		"tasks": path.join(dirs.tasks)
 	};
 
 	return paths;

@@ -5,7 +5,7 @@
 \* ============================================================ */
 
 var fs              = require('fs');
-var gif             = require('gulp-if');
+var gulpif          = require('gulp-if');
 var livereload      = require('gulp-livereload');
 var path            = require('path');
 
@@ -21,7 +21,7 @@ module.exports = function(gulp, config, tasks) {
 		gulp.src([path.join(config.paths.src.sass, '/**/*.scss')])
 			.pipe(sass({errLogToConsole: true, outputStyle: 'expanded'}).on('error', sass.logError))
 			.pipe(gulp.dest(config.paths.dest.css))
-			.pipe(gif(config.isWatched, livereload()));
+			.pipe(gulpif(config.isWatched, livereload()));
 	});
 
 	gulp.task('watch:sass', function () {

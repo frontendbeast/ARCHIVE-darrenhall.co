@@ -26,6 +26,7 @@
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.1",
+    "gulp-inline-source": "^3.0.0",
     "gulp-livereload": "^3.8.1",
     "gulp-sass": "^2.3.2",
     "husky": "^0.11.7",
