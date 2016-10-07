@@ -15,10 +15,14 @@ const hbs = exphbs.create({
 // Remove header
 app.disable('x-powered-by');
 
+// Use handlebars as the view engine
 app.engine('hbs', hbs.engine);
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Serve static assets
+app.use(express.static(path.join(__dirname, 'public')));
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {

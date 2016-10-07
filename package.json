@@ -23,9 +23,16 @@
   },
   "homepage": "https://darrenhall.co",
   "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-if": "^2.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^2.3.2",
     "husky": "^0.11.7",
     "mocha": "^3.0.2",
+    "run-sequence": "^1.2.2",
     "validate-commit-msg": "^2.8.0",
+    "yargs": "^6.0.0",
     "zombie": "^4.2.1"
   },
   "dependencies": {
