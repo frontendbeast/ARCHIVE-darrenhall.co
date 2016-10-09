@@ -1,0 +1,22 @@
+$d-gutter: 1rem;
+
+.o-grid {
+	display: flex;
+	flex-wrap: wrap;
+	margin: -#{$d-gutter};
+}
+
+	.o-grid__item {
+		flex: 1 0 $d-gutter;
+		margin: 0 $d-gutter;
+	}
+
+	.o-grid__item--1\/1 {
+		flex-basis: calc(100% - #{$d-gutter * 2});
+	}
+
+	@media (min-width: 30em) {
+		.o-grid__item--1\/2\@md {
+			flex-basis: calc(50% - #{$d-gutter * 2});
+		}
+	}

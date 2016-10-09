@@ -1,6 +1,6 @@
 {
   "name": "darrenhall.co",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "My portfolio and blog.",
   "main": "index.js",
   "scripts": {

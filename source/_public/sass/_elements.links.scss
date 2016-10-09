@@ -1,0 +1,11 @@
+a:not([class]) {
+	border-bottom: 1px solid #000;
+	color: #000;
+	text-decoration: none;
+	transition: border-bottom-color 0.25s, color 0.25s;
+
+	&:hover {
+		border-bottom-color: #0cf;
+		color: #0cf;
+	}
+}

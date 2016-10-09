@@ -1,0 +1,12 @@
+.c-button {
+	background-color: #0fc;
+	color: #000;
+	display: inline-block;
+	padding: 1rem 2rem;
+	text-decoration: none;
+	transition: background-color 0.25s;
+
+	&:hover {
+		background-color: mix(#0fc, #fff, 50%);
+	}
+}
