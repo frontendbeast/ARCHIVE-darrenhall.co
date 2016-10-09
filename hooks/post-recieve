@@ -49,7 +49,7 @@ do
 
     # Install npm_modules
     cd $WWW_RELEASE
-    npm install --production
+    npm install
 
 	# Build front end
     gulp --prod
