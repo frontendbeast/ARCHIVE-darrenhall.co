@@ -25,9 +25,14 @@ app.set('views', path.join(__dirname, 'views'));
 // Serve static assets
 app.use(express.static(path.join(__dirname, 'public')));
 
-// respond with "hello world" when a GET request is made to the homepage
+// Home page routing
 app.get('/', function(req, res) {
     res.render('home');
+});
+
+// Blog post routing
+app.get('/blog/to-inline-or-not-to-inline', function(req, res) {
+    res.render('blog/to-inline-or-not-to-inline');
 });
 
 // Unless port is set by mocha, use 4000 for production or 3000 otherwise

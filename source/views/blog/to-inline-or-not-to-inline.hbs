@@ -1,0 +1,32 @@
+<div class="c-section">
+	<div class="o-wrapper">
+
+		<h1>To inline, or not to inline</h1>
+
+		<p>A good friend of mine, <a href="https://twitter.com/frontendphil">@frontendphil</a> recently asked:</p>
+
+		<blockquote cite="https://twitter.com/frontendphil/status/788012035628040192">If I put a 50KB SVG spritesheet inline in my HTML, will the gods of frontend smite me? This is actually a serious question.</blockquote>
+
+		<p>It&rsquo;s a good question.</p>
+
+		<p>As frontend developers who care about performance, we&rsquo;re used to trying to reduce the number of HTTP requests we make. Each request carries with it latency, the time it takes for the server to respond to a request for a file. HTTP/2 will help reduce latency issues amongst other things, but we&rsquo;ll still look to inline critical CSS and small images.</p>
+
+		<p>In this case though, Phil would like to inline a 50KB image in his HTML. This might not be such a great idea. To understand why, we need to look at how HTTP requests are processed.</p>
+
+		<p>When you land on a web page, your browser makes a TCP connection to the web server. TCP uses something called <a href="https://www.maxcdn.com/one/visual-glossary/tcp-slow-start/">slow-start</a>, which prevents network congestion. It does this by only sending 10 packets of data in the first round trip, it&rsquo;s initial congestion window (initcwnd). After that it must wait for the client, your browser, to acknowledge that it has received those packets before more can be sent.</p>
+
+		<p>I should note that the initcwnd was increased to 10 packets in around 2010, from 4.<sup><a href="¢cite-1">[1]</a></sup> Older servers may be running wit these lower limits. It&rsquo;s also worth noting that whilst most CDNs use an initcwnd of 10, some go upwards of 50.<sup><a href="#cite-2">[2]</a></sup></p>
+
+		<p>Anyway, these first 10 packets equate to about 14KB of data. So to only have one round trip, we ideally want to keep our page size below 14KB. Otherwise we&rsquo;ll need to make more trips, which will incur additional latency.</p>
+
+		<p>50KB of extra page weight could mean an extra ~150ms of latency on the request.<sup><a href="#cite-3">[3]</a></sup> Phil would need to balance this against the latency of serving a separate file, and the benefits he would get by doing that (caching etc), to see what would work best for him.</p>
+
+		<p>My advice though, is if in doubt, aim for 14KB. </p>
+		<h2>References</h2>
+		<ol>
+			<li id="cite-1"><a href="https://developers.google.com/speed/docs/insights/mobile">Mobile Analysis in PageSpeed Insights</a></li>
+			<li id="cite-2"><a href="http://www.cdnplanet.com/blog/initcwnd-settings-major-cdn-providers/">Initcwnd settings of major CDN providers</a></li>
+			<li id="cite-3"><a href="https://hpbn.co/building-blocks-of-tcp/#ss-time">Building Blocks of TCP</a></li>
+		</ol>
+	</div>
+</div>
