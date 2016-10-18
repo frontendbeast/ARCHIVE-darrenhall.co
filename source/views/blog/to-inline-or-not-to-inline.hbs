@@ -15,7 +15,7 @@
 
 		<p>When you land on a web page, your browser makes a TCP connection to the web server. TCP uses something called <a href="https://www.maxcdn.com/one/visual-glossary/tcp-slow-start/">slow-start</a>, which prevents network congestion. It does this by only sending 10 packets of data in the first round trip, it&rsquo;s initial congestion window (initcwnd). After that it must wait for the client, your browser, to acknowledge that it has received those packets before more can be sent.</p>
 
-		<p>I should note that the initcwnd was increased to 10 packets in around 2010, from 4.<sup><a href="¢cite-1">[1]</a></sup> Older servers may be running wit these lower limits. It&rsquo;s also worth noting that whilst most CDNs use an initcwnd of 10, some go upwards of 50.<sup><a href="#cite-2">[2]</a></sup></p>
+		<p>I should note that the initcwnd was increased to 10 packets in around 2010, from 4.<sup><a href="#cite-1">[1]</a></sup> Older servers may be running with these lower limits. It&rsquo;s also worth noting that whilst most CDNs use an initcwnd of 10, some go upwards of 50.<sup><a href="#cite-2">[2]</a></sup></p>
 
 		<p>Anyway, these first 10 packets equate to about 14KB of data. So to only have one round trip, we ideally want to keep our page size below 14KB. Otherwise we&rsquo;ll need to make more trips, which will incur additional latency.</p>
 
