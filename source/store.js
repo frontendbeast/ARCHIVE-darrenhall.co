@@ -1,7 +1,18 @@
 const contentful = require('contentful');
 const fs = require('fs');
 
-const path = (!process.env.NODE_ENV) ? './' : '../../';
+var path;
+
+switch(process.env.NODE_ENV) {
+  case 'development':
+    path = '../../../';
+    break;
+  case 'production':
+    path = '../../';
+    break;
+  default:
+    path = './';
+}
 
 const constants = require(`${path}constants`);
 

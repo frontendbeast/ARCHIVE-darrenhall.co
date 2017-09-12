@@ -3,8 +3,6 @@
 const path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
-const pm2 = require('pm2');
-const store = require('./store');
 
 const app = express();
 
@@ -28,12 +26,18 @@ app.set('views', path.join(__dirname, 'views'));
 // Serve static assets
 app.use(express.static(path.join(__dirname, 'public')));
 
-//
+// Watch for Contentful webhook and get data
 app.use(function(req, res, next) {
   if(req.headers['content-type'] === 'application/vnd.contentful.management.v1+json') {
+    const pm2 = require('pm2');
+    const store = require('./store');
+
     store.update().then((results) => {
       res.sendStatus(200);
-      pm2.connect((err) => pm2.restart('all'));
+      if(process.env.NODE_ENV) {
+        const prefix = (process.env.NODE_ENV === 'development') ? 'staging.' : '';
+        pm2.connect((err) => pm2.restart(`${prefix}darrenhall.co`));
+      }
     }, (error) => res.sendStatus(500));
   } else {
     next();
