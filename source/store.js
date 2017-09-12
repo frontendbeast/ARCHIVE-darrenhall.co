@@ -1,0 +1,53 @@
+const contentful = require('contentful');
+const fs = require('fs');
+
+const path = (!process.env.NODE_ENV) ? './' : '../../';
+
+const constants = require(`${path}constants`);
+
+const client = contentful.createClient({
+  space: constants.CONTENTFUL_SPACE,
+  accessToken: constants.CONTENTFUL_TOKEN
+});
+
+const paths = {
+  data: 'data',
+  posts: 'data/posts'
+};
+
+function writeJSON(file, path, data) {
+  return new Promise((resolve, reject) => {
+    if (!fs.existsSync(path)){
+      fs.mkdirSync(path);
+    }
+
+    fs.writeFile(`${path}/${file}.json`, JSON.stringify(data, null, 2), 'utf8', () => resolve(`${path}/${file}.json`));
+  });
+}
+
+const store = {
+  update: function() {
+    const index = client.getEntry('639QjkBShykwUmcO0uI8cg').then(entry => {
+      return writeJSON('index', paths.data, entry);
+    });
+
+    const posts = client.getEntries({'content_type': 'post', limit: 1000}).then((data) => {
+      const promises = [];
+      promises.push(writeJSON('index', paths.posts, data));
+
+      data.items.forEach(entry => {
+        promises.push(writeJSON(entry.fields.slug, paths.posts, entry));
+      });
+
+      return Promise.all(promises);
+    });
+
+    return Promise.all([index, posts]).then(results => {
+      return [].concat.apply([], results);
+    });
+  }
+}
+
+module.exports = store;
+
+require('make-runnable');

@@ -1,32 +1,16 @@
 <div class="c-section">
 	<div class="o-wrapper">
 		<h1 class="u-visually-hidden">Darren Hall</h1>
-		<h2>I&rsquo;m a freelance frontend developer based in Manchester.</h2>
-		<p>With over 12 years of commercial experience I develop responsive, performant and accessible websites using HTML, CSS and JavaScript.</p>
-		<p>I work extensively with Gulp and Grunt to automate and optimise build processes.</p>
-		<h3>Skills</h3>
+		<h2>{{fields.title}}</h2>
+		{{{markdown fields.intro}}}
 		<div class="o-grid">
 			<div class="o-grid__item o-grid__item--1/1 o-grid__item--1/2@md">
-				<ul>
-					<li>CSS, Sass and LESS</li>
-					<li>HTML and PHP</li>
-					<li>JS, Node and jQuery</li>
-				</ul>
+		    {{{markdown fields.skills1}}}
 			</div>
 			<div class="o-grid__item o-grid__item--1/1 o-grid__item--1/2@md">
-				<ul>
-					<li>Node, Gulp and Grunt</li>
-					<li>Angular and Express</li>
-					<li>Git, Mercurial and Subversion</li>
-				</ul>
+		    {{{markdown fields.skills2}}}
 			</div>
 		</div>
-		<h3>Experienced with WordPress and Craft CMS</h3>
-		<p>I have previously worked with extensively with WordPress, and more recently with Craft CMS. My previous work as an Object-Oriented PHP developer with CakePHP, CodeIgniter and Symfony allows me to get the most out of these systems.</p>
-		<h3>Sitecore and Umbraco&nbsp;friendly</h3>
-		<p>Many of the projects I have worked on in the last few years used a .NET CMS, and I am skilled at working with both Sitecore and Umbraco. I am adept at integrating Razor templates and have a working knowledge of editing controllers and tests.</p>
-		<h2>Currently available from June</h2>
-		<p>If you&rsquo;re interested in working with me then I&rsquo;d love to hear from you! I&rsquo;m currently available from the middle of June 2017. </p>
-		<p><a href="mailto:darren@darrenhall.co" class="c-button">Get in touch</a></p>
-	</div>
+    {{{markdown fields.additional}}}
+  </div>
 </div>

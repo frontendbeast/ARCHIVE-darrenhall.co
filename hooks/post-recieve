@@ -13,8 +13,7 @@ DATE=$(date +"%Y%m%d%H%M")
 REPO_PATH=/var/www/darrenhall.co/repo.git
 
 # Cater for multiple similtaneous branch pushes
-while read oldrev newrev refname
-do
+while read oldrev newrev refname do
     # Get name of branch that is being pushed
     BRANCH=$(git rev-parse --symbolic --abbrev-ref $refname)
 
@@ -51,7 +50,12 @@ do
     cd $WWW_RELEASE
     npm install
 
-	# Build front end
+    # Get data
+    cd source
+    node store.js update
+    cd ../
+
+    # Build front end
     gulp --prod
 
     # Remove all but last 5 releases

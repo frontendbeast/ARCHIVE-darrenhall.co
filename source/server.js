@@ -3,13 +3,16 @@
 const path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
+const pm2 = require('pm2');
+const store = require('./store');
 
 const app = express();
 
 const hbs = exphbs.create({
-    extname: 'hbs',
-    defaultLayout: 'default',
-    layoutsDir: path.join(__dirname, 'views', 'layouts'),
+  extname: 'hbs',
+  defaultLayout: 'default',
+  helpers: { 'markdown': require('helper-markdown')},
+  layoutsDir: path.join(__dirname, 'views', 'layouts'),
 	partialsDir: [path.join(__dirname, 'views/partials')]
 });
 
@@ -25,9 +28,22 @@ app.set('views', path.join(__dirname, 'views'));
 // Serve static assets
 app.use(express.static(path.join(__dirname, 'public')));
 
+//
+app.use(function(req, res, next) {
+  if(req.headers['content-type'] === 'application/vnd.contentful.management.v1+json') {
+    store.update().then((results) => {
+      res.sendStatus(200);
+      pm2.connect((err) => pm2.restart('all'));
+    }, (error) => res.sendStatus(500));
+  } else {
+    next();
+  }
+});
+
 // Home page routing
 app.get('/', function(req, res) {
-    res.render('home');
+    const data = require('./data/index.json');
+    res.render('home', data);
 });
 
 // Blog post routing
