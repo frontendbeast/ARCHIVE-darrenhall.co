@@ -29,7 +29,8 @@ function getPaths(config) {
 		"src": {
 			"partials": path.join(base.src, dirs.partials),
 			"root": base.src,
-			"sass": path.join(base.src, dirs.sass)
+			"sass": path.join(base.src, dirs.sass),
+			"views": path.join(dirs.root, dirs.views)
 		},
 		"tasks": path.join(dirs.tasks)
 	};

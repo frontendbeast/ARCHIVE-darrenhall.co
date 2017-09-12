@@ -8,6 +8,7 @@ var argv            = require('yargs').argv;
 var del             = require('del');
 var fs              = require('fs');
 var gulp            = require('gulp');
+var livereload      = require('gulp-livereload');
 var path            = require('path');
 var runSequence     = require('run-sequence');
 
@@ -53,6 +54,10 @@ gulp.task('clean', function () {
 \* ============================================================ */
 
 var tasksDefault = (config.isWatched) ? tasks.default.concat(tasks.watch) : tasks.default;
+
+if(config.isWatched) {
+	livereload.listen();
+}
 
 gulp.task('watch', tasks.watch);
 gulp.task('default', function(cb) {
