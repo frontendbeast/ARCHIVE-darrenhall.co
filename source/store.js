@@ -5,7 +5,7 @@ var path;
 
 switch(process.env.NODE_ENV) {
   case 'development':
-    path = '../../../';
+    path = '../../../../../';
     break;
   case 'production':
     path = '../../';
