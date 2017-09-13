@@ -13,7 +13,8 @@ DATE=$(date +"%Y%m%d%H%M")
 REPO_PATH=/var/www/darrenhall.co/repo.git
 
 # Cater for multiple similtaneous branch pushes
-while read oldrev newrev refname do
+while read oldrev newrev refname
+do
     # Get name of branch that is being pushed
     BRANCH=$(git rev-parse --symbolic --abbrev-ref $refname)
 
@@ -23,10 +24,14 @@ while read oldrev newrev refname do
     # Web root
     WWW_ROOT=/var/www/darrenhall.co
 
+    # Environment
+    ENV=production
+
     if [ "$BRANCH" != "master" ]; then
         # We're not on master, so switch to staging
         PM2_PROCESS=staging.$PM2_PROCESS
         WWW_ROOT=$WWW_ROOT/subdomains/staging
+        ENV=development
     fi
 
     # Set deployment paths
@@ -46,13 +51,17 @@ while read oldrev newrev refname do
     # Set working tree to this release and checkout repo
     git --work-tree=$WWW_RELEASE --git-dir=$REPO_PATH checkout $BRANCH -f
 
+    # Use correct version of node
+    nvm use v6.9.1
+
     # Install npm_modules
     cd $WWW_RELEASE
     npm install
 
     # Get data
     cd source
-    node store.js update
+    if [ ! -d data ]; then mkdir data; fi
+    NODE_ENV=$ENV node store.js update
     cd ../
 
     # Build front end

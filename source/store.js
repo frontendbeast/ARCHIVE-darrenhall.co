@@ -28,11 +28,17 @@ const paths = {
 
 function writeJSON(file, path, data) {
   return new Promise((resolve, reject) => {
-    if (!fs.existsSync(path)){
+    if (!fs.existsSync(path)) {
       fs.mkdirSync(path);
     }
 
-    fs.writeFile(`${path}/${file}.json`, JSON.stringify(data, null, 2), 'utf8', () => resolve(`${path}/${file}.json`));
+    const filePath = `${path}/${file}.json`;
+
+    if (!fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+
+    fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8', () => resolve(`${path}/${file}.json`));
   });
 }
 
