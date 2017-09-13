@@ -33,12 +33,12 @@ app.use(function(req, res, next) {
     const store = require('./store');
 
     store.update().then((results) => {
-      res.sendStatus(200);
+      res.status(200).send(results);
       if(process.env.NODE_ENV) {
         const prefix = (process.env.NODE_ENV === 'development') ? 'staging.' : '';
         pm2.connect((err) => pm2.restart(`${prefix}darrenhall.co`));
       }
-    }, (error) => res.sendStatus(500));
+    }, (error) => res.status(500).send(error));
   } else {
     next();
   }

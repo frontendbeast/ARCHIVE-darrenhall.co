@@ -22,8 +22,8 @@ const client = contentful.createClient({
 });
 
 const paths = {
-  data: 'data',
-  posts: 'data/posts'
+  data: `${__dirname}/data`,
+  posts: `${__dirname}/data/posts`
 };
 
 function writeJSON(file, path, data) {
@@ -34,11 +34,17 @@ function writeJSON(file, path, data) {
 
     const filePath = `${path}/${file}.json`;
 
-    if (!fs.existsSync(filePath)) {
+    if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
 
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8', () => resolve(`${path}/${file}.json`));
+    fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8', error => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(`${path}/${file}.json`);
+      }
+    });
   });
 }
 
@@ -48,7 +54,7 @@ const store = {
       return writeJSON('index', paths.data, entry);
     });
 
-    const posts = client.getEntries({'content_type': 'post', limit: 1000}).then((data) => {
+    const posts = client.getEntries({'content_type': 'post', limit: 1000}).then(data => {
       const promises = [];
       promises.push(writeJSON('index', paths.posts, data));
 
